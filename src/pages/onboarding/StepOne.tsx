@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import {Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router";
 
 const onboardingStepOneFormSchema = onboardingSchema.pick({
   userType: true,
@@ -47,17 +48,19 @@ const StepOne = () => {
       userType: undefined,
     },
   });
-    
-    const userType = form.watch("userType");
+
+  const userType = form.watch("userType");
+  const navigate = useNavigate();
 
   const onSubmit = (data: onboardingStepOneSchema) => {
     console.table(data);
-  };
-
+    navigate("/onboarding/auth-options");
+    };
+    
   return (
     <div className="w-full flex flex-col items-start justify-center h-full space-y-6 md:mx-auto md:max-w-xl">
       <div className="text-grey-normal px-2 md:px-0">
-        <h2 className=" text-2xl font-semibold text-left">
+        <h2 className=" text-2xl md:text-4xl font-semibold text-left py-4">
           Welcome to <span className="text-red-normal">Emro ✋</span>
         </h2>
         <p className="text-base">Chose a category to sign up</p>
