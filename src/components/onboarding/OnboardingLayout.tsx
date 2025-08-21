@@ -39,18 +39,18 @@ const onboardingLayout = () => {
         ))}
       </aside>
 
-        <main className="onboarding-bg md:flex-1 p-6 flex items-center justify-center min-h-screen">
-          {/* Card visible only on mobile */}
-          <div className="w-full md:hidden flex items-center justify-center">
-            <Card className="w-full ">
-            <Outlet />
-            </Card>
-          </div>
-          {/* On desktop, just render the outlet without Card */}
-          <div className="hidden md:block w-full">
-            <Outlet />
-          </div>
-        </main>
+      <main className="onboarding-bg flex-1 p-6 flex items-center justify-center min-h-screen">
+        {/* Card visible only on mobile */}
+        <div className="w-full md:hidden flex items-center justify-center ">
+          <Card className="w-full">
+          <Outlet />
+          </Card>
+        </div>
+        {/* On desktop, just render the outlet without Card */}
+        <div className="hidden md:block w-full">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };
