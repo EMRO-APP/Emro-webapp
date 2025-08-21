@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 import OnboardingLayout from '@/components/onboarding/OnboardingLayout';
 import StepTwo from './pages/onboarding/StepTwo';
 import StepOne from './pages/onboarding/StepOne';
+import AuthOptions from './pages/onboarding/AuthOptions';
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
         <Route path="/onboarding" element={<OnboardingLayout />}>
           {/* <Route index element={<MarketingHome />} /> */}
           <Route path="step-one" element={<StepOne />} />
+          <Route path="auth-options" element={<AuthOptions />} />
           <Route path="step-two" element={<StepTwo />} />
         </Route>
 
