@@ -22,6 +22,7 @@ export const onboardingSchema = z
     email: z.email("Valid email is required"),
     password: passwordSchema,
     confirmPassword: z.string(),
+    otp: z.string().min(6, "OTP must be 6 Digit").max(6, "OTP must be 6 Digit"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",

@@ -3,6 +3,7 @@ import OnboardingLayout from '@/components/onboarding/OnboardingLayout';
 import StepTwo from './pages/onboarding/StepTwo';
 import StepOne from './pages/onboarding/StepOne';
 import AuthOptions from './pages/onboarding/AuthOptions';
+import StepThree from './pages/onboarding/StepThree';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path="step-one" element={<StepOne />} />
           <Route path="auth-options" element={<AuthOptions />} />
           <Route path="step-two" element={<StepTwo />} />
+          <Route path="step-three" element={<StepThree />} />
         </Route>
 
         {/* <Route path="projects">

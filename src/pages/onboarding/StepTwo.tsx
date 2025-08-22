@@ -3,19 +3,19 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, Eye, EyeOff, Lock, Mail, Phone } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, Phone } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import BackButton from "@/components/ui/back-button";
 
 const onboardingStepTwoFormSchema = onboardingSchema.pick({
   phoneNumber: true,
@@ -44,22 +44,13 @@ const StepTwo = () => {
 
   const onSubmit = (data: onboardingStepTwoSchema) => {
     console.table(data);
-    // navigate("/onboarding/auth-options");
+    navigate("/onboarding/step-three");
   };
 
   return (
     //   <div className="">
     <div className="px-4 md:w-3/4 md:mx-auto md:shadow-md md:rounded-lg md:border bg-card md:px-10 md:py-10">
-      <div className="text-grey-normal flex">
-        <Button
-          variant="ghost"
-          onClick={() => navigate(-1)}
-          className="cursor-pointer"
-        >
-          <ChevronLeft size={24} />
-          <p className="text-sm">Go Back</p>
-        </Button>
-      </div>
+      <BackButton />
 
       <div>
         <h2 className="text-2xl text-grey-normal font-semibold">Sign Up</h2>
@@ -187,7 +178,7 @@ const StepTwo = () => {
               disabled={!watchedField}
               className="w-full bg-blue-normal hover:bg-blue-normal-hover"
             >
-              Submit
+              Create Account
             </Button>
           </form>
         </Form>
