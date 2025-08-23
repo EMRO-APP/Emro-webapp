@@ -9,12 +9,11 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/onboarding" element={<OnboardingLayout />}>
-          {/* <Route index element={<MarketingHome />} /> */}
-          <Route path="step-one" element={<StepOne />} />
-          <Route path="auth-options" element={<AuthOptions />} />
-          <Route path="step-two" element={<StepTwo />} />
-          <Route path="step-three" element={<StepThree />} />
+        <Route path="/" element={<OnboardingLayout />}>
+          <Route index element={<AuthOptions />} />
+          <Route path="onboarding/step-one" element={<StepOne />} />
+          <Route path="onboarding/step-two" element={<StepTwo />} />
+          <Route path="onboarding/step-three" element={<StepThree />} />
         </Route>
 
         {/* <Route path="projects">

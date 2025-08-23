@@ -54,7 +54,7 @@ const StepOne = () => {
 
   const onSubmit = (data: onboardingStepOneSchema) => {
     console.table(data);
-    navigate("/onboarding/auth-options");
+    navigate("/onboarding/step-two");
     };
     
   return (

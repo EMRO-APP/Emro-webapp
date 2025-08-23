@@ -8,10 +8,8 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { onboardingSchema } from "@/components/onboarding/schema";
@@ -19,6 +17,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const onboardingStepThreeFormSchema = onboardingSchema.pick({
   otp: true,
@@ -34,32 +33,34 @@ const StepThree = () => {
     },
   });
 
-    const watchedField = form.watch("otp");
-    
+  const watchedField = form.watch("otp");
+
   // Resend OTP timer state
   const [timer, setTimer] = useState(59);
   const [isDisabled, setIsDisabled] = useState(true);
 
-    useEffect(() => {
-      let interval = null;
-      if (isDisabled && timer > 0) {
-        interval = setInterval(() => {
-          setTimer((prev) => prev - 1);
-        }, 1000);
-      } else if (timer === 0) {
-        setIsDisabled(false);
-      }
-      return () => {
-        if (interval) clearInterval(interval);
-      };
-    }, [isDisabled, timer]);
+  useEffect(() => {
+    let interval = null;
+    if (isDisabled && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setIsDisabled(false);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isDisabled, timer]);
 
-      const handleResend = () => {
-        setIsDisabled(true);
-        setTimer(59);
-      };
+  const handleResend = () => {
+    setIsDisabled(true);
+    setTimer(59);
+  };
   const onSubmit = (data: onboardingStepThreeSchema) => {
-    console.table(data);
+      console.table(data);
+    toast.success("Cheers, Account Verified.");
+    form.reset();
     //   navigate("/onboarding/step-three");
   };
   return (
@@ -117,11 +118,10 @@ const StepThree = () => {
           onClick={handleResend}
         >
           {isDisabled
-            ? `Resend in 0:${timer.toString().padStart(2, "0")}s`
+            ? `0:${timer.toString().padStart(2, "0")}s`
             : "Resend Otp"}
         </Button>
       </div>
-      {/* TODO: ADD TOAST */}
     </div>
   );
 };

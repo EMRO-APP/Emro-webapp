@@ -176,7 +176,7 @@ const StepTwo = () => {
             <Button
               type="submit"
               disabled={!watchedField}
-              className="w-full bg-blue-normal hover:bg-blue-normal-hover"
+              className="w-full bg-blue-normal hover:bg-blue-normal-hover cursor-pointer"
             >
               Create Account
             </Button>

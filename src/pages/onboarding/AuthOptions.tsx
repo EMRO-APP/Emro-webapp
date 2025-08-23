@@ -17,7 +17,7 @@ const AuthOptions = () => {
           size="lg"
           type="submit"
           className="cursor-pointer bg-blue-normal hover:bg-blue-normal-hover w-full"
-          onClick={() => navigate("/onboarding/step-two")}
+          onClick={() => navigate("/onboarding/step-one")}
         >
           Sign Up Now
         </Button>
