@@ -15,6 +15,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router";
+import { use } from "react";
+import useOnboardingStore from "@/components/onboarding/store";
 
 const onboardingStepOneFormSchema = onboardingSchema.pick({
   userType: true,
@@ -51,9 +53,11 @@ const StepOne = () => {
 
   const userType = form.watch("userType");
   const navigate = useNavigate();
+  const setData = useOnboardingStore((state) => state.setData);
 
   const onSubmit = (data: onboardingStepOneSchema) => {
     console.table(data);
+    setData(data);
     navigate("/onboarding/step-two");
     };
     

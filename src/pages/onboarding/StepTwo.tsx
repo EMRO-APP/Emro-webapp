@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import BackButton from "@/components/ui/back-button";
+import useOnboardingStore from "@/components/onboarding/store";
 
 const onboardingStepTwoFormSchema = onboardingSchema.pick({
   phoneNumber: true,
@@ -41,9 +42,10 @@ const StepTwo = () => {
 
   // Check if all fields are empty
   const watchedField = form.watch("confirmPassword");
+  const setData = useOnboardingStore((state) => state.setData);
 
   const onSubmit = (data: onboardingStepTwoSchema) => {
-    console.table(data);
+    setData(data);
     navigate("/onboarding/step-three");
   };
 

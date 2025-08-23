@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import useOnboardingStore from "@/components/onboarding/store";
 
 const onboardingStepThreeFormSchema = onboardingSchema.pick({
   otp: true,
@@ -58,7 +59,10 @@ const StepThree = () => {
     setTimer(59);
   };
   const onSubmit = (data: onboardingStepThreeSchema) => {
-      console.table(data);
+    const { otp, ...storedDataWithoutOtp } = useOnboardingStore
+      .getState()
+      .getData();
+    console.table({ ...data, ...storedDataWithoutOtp });
     toast.success("Cheers, Account Verified.");
     form.reset();
     //   navigate("/onboarding/step-three");
@@ -73,7 +77,16 @@ const StepThree = () => {
           Verify Account
         </h2>
         <p className="text-sm py-2 mb-4">
-          A 6 digit OTP has been sent to test@gmail.com
+          A 6 digit OTP has been sent to{" "}
+          {(() => {
+            const email =
+              useOnboardingStore.getState().getData()?.email || "your email";
+            const [name, domain] = email.split("@");
+            if (!domain) return email;
+            const masked =
+              name.slice(0, 2) + "*".repeat(Math.max(0, name.length - 2));
+            return masked + "@" + domain;
+          })()}
         </p>
       </div>
 
