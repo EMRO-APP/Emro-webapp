@@ -4,6 +4,9 @@ import StepTwo from './pages/onboarding/StepTwo';
 import StepOne from './pages/onboarding/StepOne';
 import AuthOptions from './pages/onboarding/AuthOptions';
 import StepThree from './pages/onboarding/StepThree';
+import Login from './pages/auth/Login';
+import PasswordReset from './pages/auth/PasswordReset';
+import CompletePasswordReset from './pages/auth/CompletePasswordReset';
 
 const App = () => {
   return (
@@ -14,6 +17,9 @@ const App = () => {
           <Route path="onboarding/step-one" element={<StepOne />} />
           <Route path="onboarding/step-two" element={<StepTwo />} />
           <Route path="onboarding/step-three" element={<StepThree />} />
+          <Route path="onboarding/auth/login" element={<Login />} />
+          <Route path="onboarding/auth/reset-password" element={<PasswordReset />} />
+          <Route path="onboarding/auth/reset-password-complete" element={<CompletePasswordReset />} />
         </Route>
 
         {/* <Route path="projects">
