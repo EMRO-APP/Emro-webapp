@@ -7,7 +7,6 @@ import StepThree from './pages/onboarding/StepThree';
 import Login from './pages/auth/Login';
 import PasswordReset from './pages/auth/PasswordReset';
 import CompletePasswordReset from './pages/auth/CompletePasswordReset';
-import Dashboard from './pages/dashboard-layout';
 import DashboardLayout from './pages/dashboard-layout';
 import IndividualDashboard from './pages/dashboard/individual-dashboard';
 
