@@ -242,7 +242,7 @@ export default function IndividualDashboard() {
       <div className="min-h-[100vh] grid grid-cols-3 gap-4 rounded-xl md:min-h-min bg-grey-light p-2">
         <Card className="col-span-2 px-4">
           {/* <div className="container mx-auto px-10"> */}
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} title="Recent Posts" />
           {/* </div> */}
         </Card>
         <div>
