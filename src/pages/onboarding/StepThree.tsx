@@ -19,11 +19,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import useOnboardingStore from "@/components/onboarding/store";
+import { useLocation, useNavigate } from "react-router";
 
 const onboardingStepThreeFormSchema = onboardingSchema.pick({
   otp: true,
 });
-
 type onboardingStepThreeSchema = z.infer<typeof onboardingStepThreeFormSchema>;
 
 const StepThree = () => {
@@ -33,6 +33,10 @@ const StepThree = () => {
       otp: "",
     },
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const prevUrl = location.state?.from;
+  const isResetPasswordFlow = prevUrl === "/onboarding/auth/reset-password";
 
   const watchedField = form.watch("otp");
 
@@ -58,23 +62,31 @@ const StepThree = () => {
     setIsDisabled(true);
     setTimer(59);
   };
+
   const onSubmit = (data: onboardingStepThreeSchema) => {
     const { otp, ...storedDataWithoutOtp } = useOnboardingStore
       .getState()
       .getData();
     console.table({ ...data, ...storedDataWithoutOtp });
-    toast.success("Cheers, Account Verified.");
+
+    
     form.reset();
-    //   navigate("/onboarding/step-three");
+    if (isResetPasswordFlow) {
+      navigate("/onboarding/auth/reset-password-complete");
+    } else {
+      toast.success("Cheers, Account Verified.");
+      navigate("/");
+    }
   };
   return (
     <div className="px-4 md:w-3/4 md:mx-auto md:shadow-md md:rounded-lg md:border bg-card md:px-10 md:py-10">
       <BackButton />
 
       <div>
-        {/*  TODO: make email dynamic and dont reveal it all */}
         <h2 className="text-2xl text-grey-normal font-semibold">
-          Verify Account
+          {isResetPasswordFlow
+            ? "Reset Password Verification"
+            : "Verify Account"}
         </h2>
         <p className="text-sm py-2 mb-4">
           A 6 digit OTP has been sent to{" "}

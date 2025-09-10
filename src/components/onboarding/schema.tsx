@@ -24,9 +24,14 @@ export const onboardingSchema = z
     confirmPassword: z.string(),
     otp: z.string().min(6, "OTP must be 6 Digit").max(6, "OTP must be 6 Digit"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords do not match.",
+        path: ["confirmPassword"],
+      });
+    }
   });
 
 export type onboardingSchema = z.infer<typeof onboardingSchema>;

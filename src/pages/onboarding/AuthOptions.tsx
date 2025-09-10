@@ -25,6 +25,7 @@ const AuthOptions = () => {
           size="lg"
           type="submit"
           className="cursor-pointer bg-grey-light hover:bg-grey-light-hover w-full text-grey-normal"
+          onClick={() => navigate("/onboarding/auth/login")}
         >
           Log in
         </Button>

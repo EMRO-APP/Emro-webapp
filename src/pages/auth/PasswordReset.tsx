@@ -27,24 +27,28 @@ const PasswordReset = () => {
       email: "",
     },
   });
-    
+
   const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
     console.table(data);
     //   toast.success("Cheers, Account Verified.");
     form.reset();
-      navigate("/onboarding/step-three", {
-          state: { from: "/onboarding/auth/reset-password" }
-      });
-    };
-    
+    navigate("/onboarding/step-three", {
+      state: { from: "/onboarding/auth/reset-password" },
+    });
+  };
+
   const watchedField = form.watch("email");
   return (
     <div className="px-4 md:w-3/4 md:mx-auto md:shadow-md md:rounded-lg md:border bg-card md:px-10 md:py-10">
       <BackButton />
 
       <div>
-        <h2 className="text-2xl text-grey-normal font-semibold">Forgot your password? </h2>
-        <p className="text-sm py-2 mb-4">An OTP will be sent to your registered email  </p>
+        <h2 className="text-2xl text-grey-normal font-semibold">
+          Forgot your password?{" "}
+        </h2>
+        <p className="text-sm py-2 mb-4">
+          An OTP will be sent to your registered email{" "}
+        </p>
       </div>
 
       <Form {...form}>
