@@ -9,6 +9,7 @@ import PasswordReset from './pages/auth/PasswordReset';
 import CompletePasswordReset from './pages/auth/CompletePasswordReset';
 import DashboardLayout from './pages/dashboard-layout';
 import IndividualDashboard from './pages/dashboard/individual-dashboard';
+import ProfileIndividual from './components/profiles/individual-profile';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
 
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route path='individual' element={<IndividualDashboard />} />
+          <Route path='individual/profile' element={<ProfileIndividual />} />
           {/* <Route element={<ProjectsLayout />}>
             <Route path=":pid" element={<Project />} />
             <Route path=":pid/edit" element={<EditProject />} />

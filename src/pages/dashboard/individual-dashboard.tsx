@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useNavigate } from "react-router";
 
 const getData = (): Promise<Payment[]> => {
   // Fetch data from your API here.
@@ -197,6 +198,7 @@ const getData = (): Promise<Payment[]> => {
 export default function IndividualDashboard() {
   const [data, setData] = useState<Payment[]>([]);
   const [newUser, setNewUser] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData().then(setData);
@@ -217,9 +219,14 @@ export default function IndividualDashboard() {
           </DialogHeader>
           <DialogFooter className="flex items-center justify-center gap-4">
             <DialogClose asChild>
-              <Button className="bg-blue-light text-blue-normal hover:bg-blue-light-hover">Cancel</Button>
+              <Button className="bg-blue-light text-blue-normal hover:bg-blue-light-hover">
+                Cancel
+              </Button>
             </DialogClose>
-            <Button className="bg-blue-normal text-blue-light hover:bg-blue-dark-hover">
+            <Button
+              className="bg-blue-normal text-blue-light hover:bg-blue-dark-hover"
+              onClick={() => navigate("profile")}
+            >
               Setup Profile
             </Button>
           </DialogFooter>
