@@ -7,7 +7,6 @@ import {
   useReactTable,
   getPaginationRowModel,
   getFilteredRowModel,
-  type ColumnFiltersState,
 } from "@tanstack/react-table";
 
 import {
@@ -54,7 +53,7 @@ export function DataTable<TData, TValue>({
         <div>
           <h3>{title}</h3>
         </div>
-        <div className="flex items-center py-4">
+        <div className="flex items-center py-2">
           <Input
             value={filter}
             onChange={(e) => {

@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { SearchForm } from "@/components/search-form"
+import { SearchForm } from "@/components/search-form";
 import {
   Sidebar,
   SidebarContent,
@@ -13,9 +13,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { Ambulance, Bell, HomeIcon, LogOutIcon, Settings, SettingsIcon, Tag, TagIcon } from "lucide-react";
-
+} from "@/components/ui/sidebar";
+import {
+  Ambulance,
+  Bell,
+  HomeIcon,
+  LogOutIcon,
+  Settings,
+  SettingsIcon,
+  Tag,
+  TagIcon,
+} from "lucide-react";
 
 const data = {
   navMain: [
@@ -63,7 +71,7 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="my-6">
+      <SidebarHeader className="my-6 ">
         <img src="/logoO.svg" loading="lazy" className="w-1/2" />
       </SidebarHeader>
       <SidebarContent>
@@ -74,8 +82,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarGroupContent>
               <SidebarMenu>
                 {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
+                  <SidebarMenuItem key={item.title} className="mb-4">
+                    <SidebarMenuButton
+                      className="hover:bg-blue-light data-[active=true]:bg-blue-light data-[active=true]:text-grey-normal text-grey-normal"
+                      asChild
+                      isActive={item.isActive}
+                    >
                       <div>
                         {item.icon}
                         <a href={item.url}>{item.title}</a>
@@ -90,11 +102,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="hidden md:flex gap-2 py-10">
-          <LogOutIcon />
+          <div className="text-red-normal">
+            <LogOutIcon />
+          </div>
           <p>Log Out</p>
         </div>
       </SidebarFooter>
-      {/* <SidebarRail /> */}
+      <SidebarRail />
     </Sidebar>
   );
 }
