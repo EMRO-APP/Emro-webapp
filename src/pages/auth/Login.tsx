@@ -12,16 +12,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import {  useState } from "react";
+import { Eye, EyeOff, LoaderCircle, Lock, Mail } from "lucide-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import unAuthorizedApi from "@/components/helpers/constants";
+import { toast } from "sonner";
 
 const loginFormSchema = z.object({
   email: z.string(),
   password: z.string().min(8, "Password is required"),
 });
-
-
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,16 +30,33 @@ const Login = () => {
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "hiknahultu@necub.com",
+      password: "Pass123!",
     },
   });
-  const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
-    console.table(data);
-    //   toast.success("Cheers, Account Verified.");
+
+  const mutation = useMutation({
+    mutationFn: async (values: z.infer<typeof loginFormSchema>) => {
+      return unAuthorizedApi.post("/api/v1/auth/login", values);
+    },
+    onSuccess: (data) => {
+      console.log("Login success:", data.data);
+      toast.success(`Cheers, ${data.data.base.message}`);
+      // navigate("/onboarding/step-three");
+    },
+    onError: (error) => {
+      console.error("Login failed:", error);
+      toast.error(`Ooops, ${error.message}`);
+    },
+  });
+
+  const onSubmit = (value: z.infer<typeof loginFormSchema>) => {
+    // console.table(value);
+    mutation.mutate(value);
     form.reset();
-    //   navigate("/onboarding/step-three");
+    navigate("/dashboard/individual");
   };
+  
   const watchedField = form.watch("password");
   return (
     <div className="px-4 md:w-3/4 md:mx-auto md:shadow-md md:rounded-lg md:border bg-card md:px-10 md:py-10">
@@ -116,13 +134,24 @@ const Login = () => {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            disabled={!watchedField}
-            className="w-full bg-blue-normal hover:bg-blue-normal-hover cursor-pointer mt-6"
-          >
-            Login
-          </Button>
+
+          {mutation.isPending ? (
+            <Button
+              type="button"
+              disabled
+              className="w-full bg-blue-normal hover:bg-blue-normal-hover cursor-pointer mt-6"
+            >
+              <LoaderCircle className="animate-spin 2s" />
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              disabled={!watchedField}
+              className="w-full bg-blue-normal hover:bg-blue-normal-hover cursor-pointer mt-6"
+            >
+              Login
+            </Button>
+          )}
         </form>
       </Form>
       <div className="text-sm mt-8 flex items-center">
