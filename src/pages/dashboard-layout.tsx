@@ -15,16 +15,19 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Link, Outlet, useLocation } from "react-router";
+import { useAuthStore } from "../store/authStore";
+
 // const data = {
-  const user = {
-    name: "John",
-    email: "john@gmail.com",
-    avatar: "/logoO.svg",
-  }
+  // const user = {
+  //   name: "John",
+  //   email: "john@gmail.com",
+  //   avatar: "/logoO.svg",
+  // }
 
 export default function DashboardLayout() {
   const location = useLocation();
   const pathNames = location.pathname.split("/").filter(Boolean);
+  const user = useAuthStore((s)=> s.user)
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -63,7 +66,7 @@ export default function DashboardLayout() {
                 })}
               </BreadcrumbList>
             </Breadcrumb>
-            <NavUser user={user} />
+            {user && <NavUser user={user} />}
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">

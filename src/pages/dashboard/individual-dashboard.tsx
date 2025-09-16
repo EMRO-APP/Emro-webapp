@@ -19,6 +19,7 @@ import {
 import { useEffect, useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useNavigate } from "react-router";
+import { useAuthStore } from "../../store/authStore";
 
 const getData = (): Promise<Payment[]> => {
   // Fetch data from your API here.
@@ -197,8 +198,15 @@ const getData = (): Promise<Payment[]> => {
 
 export default function IndividualDashboard() {
   const [data, setData] = useState<Payment[]>([]);
-  const [newUser, setNewUser] = useState(false);
+  const user = useAuthStore((s) => s.user);
+  const isPending = user?.status === "USER_STATUS_PENDING_VERIFICATION";
+  const [open, setOpen] = useState(isPending);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setOpen(isPending)
+  }, [isPending])
+
 
   useEffect(() => {
     getData().then(setData);
@@ -207,14 +215,14 @@ export default function IndividualDashboard() {
   return (
     <div>
       {/* Trigger Dialog for Unverified users */}
-      <Dialog open={!newUser} onOpenChange={(open) => setNewUser(!open)}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader className="flex items-center">
             <DialogTitle>
               <img src="/Frame 489.svg" />
             </DialogTitle>
             <DialogDescription>
-              Heyy user.firstname! Kindly Complete your profile setup
+              Heyy {user?.email}! Kindly Complete your profile setup
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex items-center justify-center gap-4">

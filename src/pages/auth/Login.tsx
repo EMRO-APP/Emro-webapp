@@ -18,15 +18,30 @@ import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import unAuthorizedApi from "@/components/helpers/constants";
 import { toast } from "sonner";
+import { useAuthStore } from "../../store/authStore";
 
 const loginFormSchema = z.object({
   email: z.string(),
-  password: z.string().min(8, "Password is required"),
+  password: z
+    .string()
+    .min(8, "Password is required")
+    .max(20, "Password must not exceed 20 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/[0-9]/, "Password must contain at least one digit")
+    .regex(
+      /[^A-Za-z0-9]/,
+      "Password must contain at least one special character"
+    ),
 });
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  //save user details in the state
+  const setUser = useAuthStore((s) => s.setUser);
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -42,7 +57,9 @@ const Login = () => {
     onSuccess: (data) => {
       console.log("Login success:", data.data);
       toast.success(`Cheers, ${data.data.base.message}`);
-      // navigate("/onboarding/step-three");
+      navigate("/dashboard/individual");
+      setUser(data?.data.user);
+      // localStorage.setItem("token", data.token);
     },
     onError: (error) => {
       console.error("Login failed:", error);
@@ -54,9 +71,8 @@ const Login = () => {
     // console.table(value);
     mutation.mutate(value);
     form.reset();
-    navigate("/dashboard/individual");
   };
-  
+
   const watchedField = form.watch("password");
   return (
     <div className="px-4 md:w-3/4 md:mx-auto md:shadow-md md:rounded-lg md:border bg-card md:px-10 md:py-10">
