@@ -7,16 +7,22 @@ export type User = {
   phone_number: string;
   role: string;
   status: string;
-    email_verified: string;
-    profile_picture: string;
+  email_verified: string;
+  profile_picture: string;
 };
 
 type AuthState = {
   user: User | null;
   setUser: (user: User | null) => void;
+  accessToken: string | null;
+  setAccessToken: (token: string | null) => void;
+  clear: () => void;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
+    user: null,
+    accessToken: null,
+    setUser: (user) => set({ user }),
+  setAccessToken: (token) => set({ accessToken: token }),
+  clear: () => set({ accessToken: null }),
 }));

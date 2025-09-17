@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "Basic",
+    "pricing": {
+      "monthly": 10,
+      "yearly": 100
+    }
+  },
+  {
+    "id": "2",
+    "title": "Premium",
+    "pricing": {
+      "monthly": 20,
+      "yearly": 200
+    }
+  },
+  {
+    "id": "3",
+    "title": "Enterprise",
+    "pricing": {
+      "monthly": 50,
+      "yearly": 500
+    }
+  }
+]
